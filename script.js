@@ -196,7 +196,7 @@ document.write(result + '<br>');
 //Дана строка, состоящая из символов, например, 'abcde'. Проверьте, что первым символом этой строки является буква 'a'. Если это так - выведите 'да', в противном случае выведите 'нет'.
 const strForCheck = prompt('Введите строку:', 'abcde');
 
-strForCheck[0] === 'a' ? (result = 'да') : (result = 'нет');
+result = strForCheck[0] === 'a' ? 'da' : 'net';
 
 document.write(result + '<br>');
 
@@ -223,15 +223,11 @@ document.write(+strFromThree[0] + +strFromThree[1] + +strFromThree[2] + '<br>');
 //Дана строка из 6-ти цифр. Проверьте, что сумма первых трех цифр равняется сумме вторых трех цифр. Если это так - выведите 'да', в противном случае выведите 'нет'.
 
 const strFromSix = prompt('Введите строку:', '543345');
-
-if (
+const isCondition =
   +strFromSix[0] + +strFromSix[1] + +strFromSix[2] ===
-  +strFromSix[3] + +strFromSix[4] + +strFromSix[5]
-) {
-  result = 'да';
-} else {
-  result = 'нет';
-}
+  +strFromSix[3] + +strFromSix[4] + +strFromSix[5];
+
+result = isCondition ? 'да' : 'нет';
 
 document.write(result + '<br>');
 
@@ -243,9 +239,12 @@ document.write(str[1] + '<br>');
 document.write(str[str.length - 1] + '<br>');
 
 //Напишите скрипт, который считает количество секунд в переданном кол-ве дней (кол-во дней вводим через prompt)
-const days = +prompt('Введите количество дней:', 365);
+const hoursInDay = 24,
+  minutesInHour = 60,
+  secondsInMinute = 60,
+  days = +prompt('Введите количество дней:', 365);
 
-document.write(days * 24 * 60 * 60 + '<br>');
+document.write(days * hoursInDay * minutesInHour * secondsInMinute + '<br>');
 
 //Переделайте приведенный код так, чтобы в нем использовались операции +=, -=, *=, /=, ++, --. Количество строк кода при этом не должно измениться. Код для переделки:
 num = 1;
@@ -289,8 +288,9 @@ document.write(result + '<br>');
 
 let testArray = [1, 2, 3, 4, 5];
 
-for (let i = 0; i < testArray.length; i++)
+for (let i = 0; i < testArray.length; i++) {
   document.write(testArray[i] + '<br>');
+}
 
 //Дан массив с элементами [1, 2, 3, 4, 5]. С помощью цикла for найдите сумму элементов этого массива. Запишите ее в переменную result.
 result = 0;
@@ -436,19 +436,13 @@ const getArea = (a, b = a) => a * b;
 
 const getSomething = (a, b) => {
   let result = 0;
+  const isAEven = a % 2,
+    isBEven = b % 2;
 
-  if (!(a % 2)) {
-    if (!(b % 2)) {
-      result = a * b;
-    } else {
-      result = b;
-    }
+  if (!isAEven) {
+    result = !isBEven ? a * b : b;
   } else {
-    if (!(b % 2)) {
-      result = a;
-    } else {
-      result = a + b;
-    }
+    result = !isBEven ? a : a + b;
   }
 
   return result;
@@ -461,11 +455,7 @@ const getAge = (age) => age >= 18;
 const calcArgs = function (a, b, c) {
   let result = 0;
 
-  if (a) {
-    result = b + c;
-  } else {
-    result = b - c;
-  }
+  result = a ? b + c : b - c;
 
   return result;
 };
@@ -475,10 +465,6 @@ const createCircles = (n) => {
   for (let i = 0; i < n; i++) {
     const circle = document.createElement('div');
     circle.classList.add('myCircle');
-
-    circle.style.cssText =
-      'width:100px;height:100px;background:red;border-radius:50%;margin-bottom:10px;';
-
     document.body.appendChild(circle);
   }
 };
