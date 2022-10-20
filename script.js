@@ -196,7 +196,7 @@ document.write(result + '<br>');
 //Дана строка, состоящая из символов, например, 'abcde'. Проверьте, что первым символом этой строки является буква 'a'. Если это так - выведите 'да', в противном случае выведите 'нет'.
 const strForCheck = prompt('Введите строку:', 'abcde');
 
-strForCheck[0] === 'a' ? (result = 'да') : (result = 'нет');
+result = strForCheck[0] === 'a' ? 'da' : 'net';
 
 document.write(result + '<br>');
 
