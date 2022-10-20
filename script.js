@@ -223,15 +223,10 @@ document.write(+strFromThree[0] + +strFromThree[1] + +strFromThree[2] + '<br>');
 //Дана строка из 6-ти цифр. Проверьте, что сумма первых трех цифр равняется сумме вторых трех цифр. Если это так - выведите 'да', в противном случае выведите 'нет'.
 
 const strFromSix = prompt('Введите строку:', '543345');
+const isCondition =  +strFromSix[0] + +strFromSix[1] + +strFromSix[2] ===
+  +strFromSix[3] + +strFromSix[4] + +strFromSix[5];
 
-if (
-  +strFromSix[0] + +strFromSix[1] + +strFromSix[2] ===
-  +strFromSix[3] + +strFromSix[4] + +strFromSix[5]
-) {
-  result = 'да';
-} else {
-  result = 'нет';
-}
+  result = isCondition ? 'да' : 'нет';
 
 document.write(result + '<br>');
 
