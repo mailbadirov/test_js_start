@@ -4,7 +4,15 @@ const showWords = (...arguments) => document.write(arguments.join(' '));
 
 //Задача 2. Напишите функцию, которая принимает произвольное количество аргументов в виде однозначных чисел и возвращает 1 многозначное число. Например, функция с именем complexDigit() при вызове  complexDigit(3,6,7) вернет число 367, а complexDigit(1,9, 4, 8,3) вернет число 19483.
 
-const complexDigit = (...arguments) => +arguments.join('');
+const complexDigit = (...arguments) => {
+  let result = arguments.filter(item => {
+    if (!isNaN(item)) {
+      return item;
+    }
+  });
+
+  return +result.join('');
+}
 
 /*Напишите код, выполнив задание из каждого пункта отдельной строкой:
 Создайте пустой объект user.
@@ -112,15 +120,25 @@ const kettle = {
   color: 'black',
   height: 20,
   capacity: 2,
-  isOn: true,
+  isOn: false,
   turnCount: 0,
 
   turnOn() {
+    if (this.isOn) {
+      alert('already turned on, soryanius!');
+      return;
+    }
+
     this.isOn = true;
     this.turnCount++;
   },
 
   turnOff() {
+    if (!this.isOn) {
+      alert('already turned off, soryanius!');
+      return;
+    }
+
     this.isOn = false;
   },
 
