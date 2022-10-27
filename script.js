@@ -37,7 +37,7 @@ const readNumber = () => {
     value = prompt('Enter a value?', 0);
   } while (!isFinite(value));
 
-  if (!value || value === null) {
+  if (!value) {
     return null;
   }
 
@@ -54,8 +54,8 @@ alert( random(1, 5) ); // 1.2345623452
 alert( random(1, 5) ); // 3.7894332423
 alert( random(1, 5) ); // 4.3435234525 */
 
-const random = (min, max) => {
-  let num = Math.random() * 10;
+const getRandomNumber = (min, max) => {
+  const num = Math.random() * 10;
 
   if (!(num >= min && num < max)) {
     return random(min, max);
@@ -70,9 +70,7 @@ const random = (min, max) => {
 
 ucFirst("вася") == "Вася";*/
 
-const ucFirst = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+const setFirstLetteUpperCase = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 /*Напишите функцию checkSpam(str), возвращающую true, если str содержит 'viagra' или 'XXX', а иначе false.
 
@@ -94,9 +92,8 @@ const checkSpam = (str) => {
 truncate("Вот, что мне хотелось бы сказать на эту тему:", 20) = "Вот, что мне хотело…"
 truncate("Всем привет!", 20) = "Всем привет!"*/
 
-const truncate = (str, maxlength) => {
-  return str.length > maxlength ? str.slice(0, maxlength - 1) + '…' : str;
-};
+const truncateSentence = (str, maxlength) =>
+  str.length > maxlength ? str.slice(0, maxlength - 1) + '…' : str;
 
 /*Есть стоимость в виде строки "$120". То есть сначала идёт знак валюты, а затем – число.
 Создайте функцию extractCurrencyValue(str), которая будет из такой строки выделять числовое значение и возвращать его.
@@ -113,12 +110,12 @@ const extractCurrencyValue = (str) => +str.slice(1);
 Подсчитывает и возвращает сумму элементов массива.
 P.S. Ноль 0 – считается числом, не останавливайте ввод значений при вводе «0».*/
 
-const sumInput = () => {
+const getInputNumbersSum = () => {
   let numsArray = [],
     sum = 0,
     value;
 
-  while (Number.isInteger((value = parseFloat(prompt('Enter a value?', 5))))) {
+  while (!isNaN((value = parseFloat(prompt('Enter a value?', 5))))) {
     numsArray.push(+value);
   }
 
@@ -143,7 +140,7 @@ getMaxSubSum([1, 2, 3]) == 6 (берём все)
 getMaxSubSum([-1, -2, -3]) = 0
 Попробуйте придумать быстрое решение: O(n2), а лучше за О(n) операций.*/
 
-const getMaxSubSum = (arr) => {
+const getMaxSubarraySum = (arr) => {
   let maxSubArray = 0;
   tempSum = 0;
 
@@ -163,7 +160,7 @@ const getMaxSubSum = (arr) => {
 
 /*написать цикл for с перебором массива, на каждую этерацию выводить номер итерации (от 0 до 10 и от 10 до 0)*/
 
-const personalTask = () => {
+const showIterationCount = () => {
   const arr = [15, 20, 30, 40, 66, 77, 85, 10, 6, 1, 12];
 
   for (let i = 0; i < arr.length; i++) {
@@ -189,11 +186,11 @@ camelize("list-style-image") == 'listStyleImage';
 camelize("-webkit-transition") == 'WebkitTransition';
 P.S. Подсказка: используйте split, чтобы разбить строку на массив символов, потом переделайте всё как нужно и методом join соедините обратно.*/
 
-const camelize = (str) => {
+const camelizeLine = (str) => {
   return str
     .split('-')
     .map((elem, index) =>
-      index > 0 ? elem.charAt(0).toUpperCase() + elem.slice(1) : elem
+      index ? elem.charAt(0).toUpperCase() + elem.slice(1) : elem
     )
     .join('');
 };
@@ -206,7 +203,8 @@ let filtered = filterRange(arr, 1, 4);
 alert( filtered ); // 3,1 (совпадающие значения)
 alert( arr ); // 5,3,8,1 (без изменений)*/
 
-const filterRange = (arr, a, b) => arr.filter((elem) => elem >= a && elem <= b);
+const filterArrayRange = (arr, minNumber, maxNumber) =>
+  arr.filter((elem) => elem >= minNumber && elem <= maxNumber);
 
 /*Напишите функцию filterRangeInPlace(arr, a, b), которая принимает массив arr и удаляет из него все значения кроме тех, которые находятся между a и b. То есть, проверка имеет вид a ≤ arr[i] ≤ b.
 Функция должна изменять принимаемый массив и ничего не возвращать.
@@ -215,9 +213,9 @@ let arr = [5, 3, 8, 1];
 filterRangeInPlace(arr, 1, 4); // удалены числа вне диапазона 1..4
 alert( arr ); // [3, 1]*/
 
-const filterRangeInPlace = (arr, a, b) => {
+const filterArrayRangeInPlace = (arr, minNumber, maxNumber) => {
   for (let num of arr) {
-    if (num >= a && num <= b) {
+    if (num >= minNumber && num <= maxNumber) {
       continue;
     }
 
@@ -230,7 +228,7 @@ let arr = [5, 2, 1, -10, 8];
 // ... ваш код для сортировки по убыванию
 alert( arr ); // 8, 5, 2, 1, -10*/
 
-const sortDescending = (arr) => arr.sort((a, b) => b - a);
+const sortArrayDescending = (arr) => arr.sort((a, b) => b - a);
 
 /*У нас есть массив строк arr. Нужно получить отсортированную копию, но оставить arr неизменённым.
 Создайте функцию copySorted(arr), которая будет возвращать такую копию.
@@ -239,7 +237,7 @@ let sorted = copySorted(arr);
 alert( sorted ); // CSS, HTML, JavaScript
 alert( arr ); // HTML, JavaScript, CSS (без изменений)*/
 
-const copySorted = (arr) => arr.slice().sort();
+const copySortedArray = (arr) => arr.slice().sort((a, b) => a.localeCompare(b));
 
 /*Создайте функцию конструктор Calculator, которая создаёт «расширяемые» объекты калькулятора.
 
@@ -315,7 +313,7 @@ let users = [ vasya, petya, masha ];
 
 alert(names); // Вася, Петя, Маша */
 
-const transformName = (arr) => arr.map((elem) => elem.name);
+const getNamesArrayFromObject = (arr) => arr.map((elem) => elem.name);
 
 /* У вас есть массив объектов user, и у каждого из объектов есть name, surname и id.
 
@@ -342,10 +340,10 @@ let users = [ vasya, petya, masha ];
 alert(usersMapped[0].id); // 1
 alert(usersMapped[0].fullName); // Вася Пупкин */
 
-const copyAndTransform = (arr) =>
-  arr.map((elem) => ({
-    fullName: `${elem.name} ${elem.surname}`,
-    id: elem.id,
+const getFullnameFromObject = (arr) =>
+  arr.map(({ name, surname, id }) => ({
+    fullName: name + ' ' + surname,
+    id,
   }));
 
 /*Напишите функцию sortByAge(users), которая принимает массив объектов со свойством age и сортирует их по нему.
@@ -365,7 +363,7 @@ alert(arr[0].name); // Вася
 alert(arr[1].name); // Маша
 alert(arr[2].name); // Петя*/
 
-const sortByAge = (users) => users.sort((a, b) => a.age - b.age);
+const sortArrayByAge = (users) => users.sort((a, b) => a.age - b.age);
 
 /*Напишите функцию shuffle(array), которая перемешивает (переупорядочивает случайным образом) элементы массива.
 
@@ -384,7 +382,7 @@ shuffle(arr);
 // ...
 Все последовательности элементов должны иметь одинаковую вероятность. Например, [1,2,3] может быть переупорядочено как [1,2,3] или [1,3,2], или [3,1,2] и т.д., с равной вероятностью каждого случая.*/
 
-const shuffle = (array) => array.sort((a, b) => Math.random() - 0.5);
+const shuffleArray = (array) => array.sort((a, b) => Math.random() - 0.5);
 
 /*Напишите функцию getAverageAge(users), которая принимает массив объектов со свойством age и возвращает средний возраст.
 
@@ -400,11 +398,10 @@ let arr = [ vasya, petya, masha ];
 
 alert( getAverageAge(arr) ); // (25 + 30 + 29) / 3 = 28*/
 
-const getAverageAge = (users) => {
-  return (
-    users.reduce((previous, current) => previous + current.age, 0) /
-    users.length
-  );
+const getArrayAverageAge = (users) => {
+  const ageSum = users.reduce((previous, current) => previous + current.age, 0);
+
+  return ageSum / users.length;
 };
 
 /*Пусть arr – массив строк.
@@ -417,12 +414,12 @@ let strings = ["кришна", "кришна", "харе", "харе",
 
 alert( unique(strings) ); // кришна, харе, :-O*/
 
-const unique = (arr) => {
+const getUniqueArray = (arr) => {
   let result = [];
 
-  for (const val of arr) {
-    if (!result.includes(val)) {
-      result.push(val);
+  for (let i = 0; i < arr.length; i++) {
+    if (!result.includes(arr[i])) {
+      result.push(arr[i]);
     }
   }
 
@@ -457,9 +454,10 @@ let usersById = groupById(users);
 
 Используйте метод .reduce в решении.*/
 
-const groupById = (arr) =>
+const groupObjectById = (arr) =>
   arr.reduce((previous, current) => {
     previous[current.id] = current;
+		
     return previous;
   }, {});
 
@@ -481,7 +479,7 @@ let salaries = {
 
 alert( sumSalaries(salaries) ); // 650*/
 
-const sumSalaries = (salaries) => {
+const getSalariesSum = (salaries) => {
   let result = 0;
 
   for (let salary of Object.values(salaries)) {
@@ -502,7 +500,7 @@ alert( count(user) ); // 2
 Постарайтесь сделать код как можно короче.
 
 P.S. Игнорируйте символьные свойства, подсчитывайте только «обычные».*/
-const count = (obj) => Object.keys(obj).length;
+const getObjectKeysCount = (obj) => Object.keys(obj).length;
 
 // https://learn.javascript.ru/destructuring-assignment
 
@@ -528,8 +526,8 @@ alert( name ); // John
 alert( age ); // 30
 alert( isAdmin ); // false*/
 
-let user = { name: 'John', years: 30 };
-let { name, years: age, isAdmin = false } = user;
+const user = { name: 'John', years: 30 };
+const { name, years: age, isAdmin = false } = user;
 
 /*У нас есть объект salaries с зарплатами:
 
@@ -544,7 +542,7 @@ let salaries = {
 Если несколько высокооплачиваемых сотрудников, можно вернуть любого из них.
 P.S. Используйте Object.entries и деструктурирование, чтобы перебрать пары ключ/значение.*/
 
-const topSalary = (salaries) => {
+const getTopSalaryEmployee = (salaries) => {
   let mostPaid = null,
     maxSalary = 0;
 
