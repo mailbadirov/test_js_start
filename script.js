@@ -41,9 +41,7 @@ for (let i = 0; i < IMAGE_COUNT; i++) {
   imagesArray[i] = createElement(imagesContainter, 'img', 'image');
   imagesArray[i].classList.add(`image${i}`);
   imagesArray[i].style.opacity = '0';
-  imagesArray[
-    i
-  ].src = `./assets/${i}.jpg`;
+  imagesArray[i].src = `./assets/${i}.jpg`;
 
   switchCircles[i] = createElement(switchContainer, 'div', 'switcher');
   switchCircles[i].addEventListener('click', (e) => {
