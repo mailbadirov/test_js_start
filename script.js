@@ -12,7 +12,7 @@ mainTextArea.addEventListener('input', (event) => {
   letterCount.textContent = 0;
   charCount.textContent = 0;
 
-  if (textAreaValue.length > 0) {
+  if (textAreaValue.length) {
     lineCount.textContent = textAreaValue.split('\n').length;
     wordCount.textContent = textAreaValue.trim().split(' ').length;
     letterCount.textContent = textAreaValue.match(/[a-z]/gi).length;
