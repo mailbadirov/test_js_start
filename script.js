@@ -1,6 +1,7 @@
-const IMAGE_COUNT = 10,
-  imagesArray = [],
-  switchCircles = [];
+const IMAGE_COUNT = 10;
+const imagesArray = [];
+const switchCircles = [];
+const SELECTED_CLASS = 'selected';
 
 let currentImage = 0;
 
@@ -14,81 +15,51 @@ const createElement = (parentName, tagName, className) => {
   return elem;
 };
 
-const containerElement = createElement(document.body, 'div', 'container'),
-  imagesContainter = createElement(
-    containerElement,
-    'div',
-    'images-containter'
-  ),
-  switchContainer = createElement(containerElement, 'div', 'switch-container'),
-  leftSwitcher = createElement(imagesContainter, 'div', 'arrow-switcher'),
-  rightSwitcher = createElement(imagesContainter, 'div', 'arrow-switcher');
+const containerElement = createElement(document.body, 'div', 'container');
+const imagesContainter = createElement(containerElement, 'div', 'images-containter');
+const switchContainer = createElement(containerElement, 'div', 'switch-container');
+const leftSwitcher = createElement(imagesContainter, 'div', 'arrow-switcher');
+const rightSwitcher = createElement(imagesContainter, 'div', 'arrow-switcher');
 
-function showSwitcher() {
-  rightSwitcher.hidden = true;
-  leftSwitcher.hidden = true;
+const slideImages = (currentImageNewValue) => {
+  imagesArray[currentImage].style.opacity = '0';
+  switchCircles[currentImage].classList.remove(SELECTED_CLASS);
 
-  if (currentImage < IMAGE_COUNT - 1) {
-    rightSwitcher.hidden = false;
-  }
+  currentImage = currentImageNewValue;
 
-  if (currentImage > 0) {
-    leftSwitcher.hidden = false;
-  }
+  switchCircles[currentImage].classList.add(SELECTED_CLASS);
+  imagesArray[currentImage].style.opacity = '1';
+
+  rightSwitcher.hidden = currentImage === IMAGE_COUNT - 1;
+  leftSwitcher.hidden = !currentImage;
 }
 
 for (let i = 0; i < IMAGE_COUNT; i++) {
   imagesArray[i] = createElement(imagesContainter, 'img', 'image');
-  imagesArray[i].classList.add(`image${i}`);
   imagesArray[i].style.opacity = '0';
   imagesArray[i].src = `./assets/${i}.jpg`;
 
   switchCircles[i] = createElement(switchContainer, 'div', 'switcher');
   switchCircles[i].addEventListener('click', (e) => {
-    imagesArray[currentImage].style.opacity = '0';
-    switchCircles[currentImage].classList.remove(`selected`);
-
-    currentImage = i;
-
-    switchCircles[i].classList.add(`selected`);
-    imagesArray[i].style.opacity = '1';
-
-    showSwitcher();
+    slideImages(i);
   });
 }
 
-leftSwitcher.textContent = '❰';
+[leftSwitcher.textContent, rightSwitcher.textContent] = ['❰', '❱'];
 leftSwitcher.hidden = true;
+rightSwitcher.classList.add('right-switcher');
 
 leftSwitcher.addEventListener('click', (event) => {
   if (currentImage > 0) {
-    imagesArray[currentImage].style.opacity = '0';
-    switchCircles[currentImage].classList.remove(`selected`);
-
-    --currentImage;
-
-    switchCircles[currentImage].classList.add(`selected`);
-    imagesArray[currentImage].style.opacity = '1';
-    showSwitcher();
+    slideImages(currentImage - 1);
   }
 });
 
-rightSwitcher.textContent = '❱';
-
-rightSwitcher.classList.add('right-switcher');
-
 rightSwitcher.addEventListener('click', (event) => {
   if (currentImage < IMAGE_COUNT - 1) {
-    imagesArray[currentImage].style.opacity = '0';
-    switchCircles[currentImage].classList.remove(`selected`);
-
-    ++currentImage;
-
-    switchCircles[currentImage].classList.add(`selected`);
-    imagesArray[currentImage].style.opacity = '1';
-    showSwitcher();
+    slideImages(currentImage + 1);
   }
 });
 
 imagesArray[0].style.opacity = '1';
-switchCircles[0].classList.add(`selected`);
+switchCircles[0].classList.add(SELECTED_CLASS);
