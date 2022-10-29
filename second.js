@@ -186,14 +186,13 @@ camelize("list-style-image") == 'listStyleImage';
 camelize("-webkit-transition") == 'WebkitTransition';
 P.S. Подсказка: используйте split, чтобы разбить строку на массив символов, потом переделайте всё как нужно и методом join соедините обратно.*/
 
-const camelizeLine = (str) => {
-  return str
+const camelizeLine = (str) =>
+  str
     .split('-')
     .map((elem, index) =>
       index ? elem.charAt(0).toUpperCase() + elem.slice(1) : elem
     )
     .join('');
-};
 
 /*Напишите функцию filterRange(arr, a, b), которая принимает массив arr, ищет элементы со значениями больше или равными a и меньше или равными b и возвращает результат в виде массива.
 Функция должна возвращать новый массив и не изменять исходный.
